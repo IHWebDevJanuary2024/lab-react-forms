@@ -16,40 +16,53 @@ function App() {
   const [graduationYear, setGraduationYear] = useState(2023);
   const [graduated, setGraduated] = useState(false);
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const newStudent = { fullName, image, phone, email, program, graduationYear, graduated }
+
+    setStudents([newStudent, ...students])
+    setEmail("")
+    setFullName("")
+    setPhone("")
+    setProgram("")
+    setGraduationYear(2023)
+    setGraduated(false)
+  }
+
 
   return (
     <div className="App pt-20">
       <Navbar />
 
       {/* FORM */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <span>Add a Student</span>
         <div>
           <label>
             Full Name
-            <input name="fullName" type="text" placeholder="Full Name" />
+            <input value={fullName} onChange={(event) => { setFullName(event.target.value) }} name="fullName" type="text" placeholder="Full Name" />
           </label>
 
           <label>
             Profile Image
-            <input name="image" type="url" placeholder="Profile Image" />
+            <input value={image} onChange={(event) => { setImage(event.target.value) }} name="image" type="url" placeholder="Profile Image" />
           </label>
 
           <label>
             Phone
-            <input name="phone" type="tel" placeholder="Phone" />
+            <input value={phone} onChange={(event) => { setPhone(event.target.value) }} name="phone" type="tel" placeholder="Phone" />
           </label>
 
           <label>
             Email
-            <input name="email" type="email" placeholder="Email" />
+            <input value={email} onChange={(event) => { setEmail(event.target.value) }} name="email" type="email" placeholder="Email" />
           </label>
         </div>
 
         <div>
           <label>
             Program
-            <select name="program">
+            <select value={program} onChange={(event) => { setProgram(event.target.value) }} name="program">
               <option value="">-- None --</option>
               <option value="Web Dev">Web Dev</option>
               <option value="UXUI">UXUI</option>
@@ -60,6 +73,8 @@ function App() {
           <label>
             Graduation Year
             <input
+              onChange={(event) => { setGraduationYear(event.target.value) }}
+              value={graduationYear}
               name="graduationYear"
               type="number"
               placeholder="Graduation Year"
@@ -72,7 +87,7 @@ function App() {
 
           <label>
             Graduated
-            <input name="graduated" type="checkbox" />
+            <input checked={graduated} onChange={(event) => { setGraduated(event.target.checked) }} name="graduated" type="checkbox" />
           </label>
 
           <button type="submit">Add Student</button>
